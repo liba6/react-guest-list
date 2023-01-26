@@ -1,38 +1,59 @@
-.App {
+body {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+}
+
+h1 {
   text-align: center;
+  color: #36454f;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+.form {
+  margin: 30px;
+  padding: 20px;
   align-items: center;
+  font-size: 24px;
+  color: #525252;
+}
+
+.labels {
+  padding: 30px;
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+}
+.name {
+  padding: 30px;
+}
+.input {
+  border-radius: 10px;
+  font-size: 18px;
 }
 
-.App-link {
-  color: #61dafb;
+.checknbtn {
+  display: flex;
+  font-size: 24px;
+  color: #525252;
+  justify-content: right;
+  margin-right: 140px;
+  padding: 30px;
+  gap: 30px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+button {
+  border-radius: 10px;
+  font-size: 18px;
+  color: #525252;
 }
+
+/*
+body::after {
+  content: '';
+  position: absolute;
+  top: -30px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  background-image: url('https://thumbs.dreamstime.com/z/new-year-celebration-champagne-fireworks-golden-abstract-background-165163278.jpg');
+  opacity: 0.5;
+} */
