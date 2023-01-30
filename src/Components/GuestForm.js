@@ -5,6 +5,7 @@ export default function GuestForm() {
   const [lastName, setLastName] = useState('');
   const [attendingStatus, setAttendingStatus] = useState(false);
   const [allGuests, setAllGuests] = useState([]);
+
   const baseUrl = 'http://localhost:4000';
 
   // send data to api
@@ -17,11 +18,9 @@ export default function GuestForm() {
       body: JSON.stringify({
         firstName: firstName,
         lastName: lastName,
-        attendingStatus: attendingStatus,
       }),
     });
-    const createdGuest = await response.json();
-    console.log('post and get', createdGuest, allGuests);
+    await response.json();
   }
 
   // to get names of all guests
@@ -41,14 +40,18 @@ export default function GuestForm() {
     }
   }
   // function to remove Guests
-  async function Remove() {
-    const response = await fetch(`${baseUrl}/guests/${allGuests.length - 1}`, {
+  async function remove(id) {
+    const response = await fetch(`${baseUrl}/guests/${id}`, {
       method: 'DELETE',
     });
-    await response.json();
+    const deletedGuest = await response.json();
+    const newGuestsArray = [...allGuests].filter(
+      (guest) => guest.id !== deletedGuest.id,
+    );
+    setAllGuests(newGuestsArray);
   }
 
-  console.log('attendingStatus', attendingStatus);
+  console.log('allGuests', allGuests);
   return (
     <div data-test-id="guest" className="pic">
       <h1>React Guest List</h1>
@@ -74,22 +77,29 @@ export default function GuestForm() {
             />
           </div>
         </div>
-        <div className="checknbtn">
-          <div className="check">
-            <input
-              type="checkbox"
-              id="checkbox"
-              className="box"
-              onClick={() => setAttendingStatus(true)}
-            />
-            <label htmlFor="checkbox"> Attending </label>
-          </div>
-          <button className="remove" onClick={Remove}>
-            Remove
-          </button>
-        </div>
       </form>
-      <h3>Invited Guests: {JSON.stringify(allGuests)}</h3>
+
+      <div className="checknbtn">
+        {allGuests.map((guest) => (
+          <section key={guest.id}>
+            {guest.firstName} {guest.lastName}
+            <div className="check">
+              <input
+                type="checkbox"
+                id="checkbox"
+                className="box"
+                checked={attendingStatus}
+                aria-label={`${firstName} ${lastName} ${attendingStatus}`}
+                onChange={() => setAttendingStatus(!attendingStatus)}
+              />
+              <label htmlFor="checkbox"> Attending </label>
+            </div>
+            <button className="remove" onClick={() => remove(guest.id)}>
+              Remove
+            </button>
+          </section>
+        ))}
+      </div>
     </div>
   );
 }
