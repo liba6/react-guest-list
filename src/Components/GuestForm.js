@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function GuestForm() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [allGuests, setAllGuests] = useState([]);
-  const [loadingMsg, setLoadingMsg] = useState('Loading...');
+  const [disable, setDisable] = useState(true);
 
   const baseUrl = 'http://localhost:4000';
 
@@ -21,6 +21,7 @@ export default function GuestForm() {
       }),
     });
     await response.json();
+    setDisable(false);
   }
 
   // to update data in api
@@ -44,12 +45,20 @@ export default function GuestForm() {
     });
     setAllGuests(allGuestsWhoChanged);
   }
+
   // to get names of all guests
   async function getGuests() {
     const response = await fetch(`${baseUrl}/guests`);
     const allGuestResponse = await response.json();
     setAllGuests(allGuestResponse);
   }
+
+  useEffect(() => {
+    getGuests().catch((error) => {
+      console.log(error);
+    });
+  }, []);
+
   // function when pressing Enter
   async function onEnterChange(event) {
     if (event.key === 'Enter') {
@@ -72,12 +81,12 @@ export default function GuestForm() {
     setAllGuests(newGuestsArray);
   }
 
-  // function to show loading msg and disable input forms
-
   console.log('allGuests', allGuests);
   return (
     <div data-test-id="guest" className="pic">
       <h1>React Guest List</h1>
+      <h2> {disable ? 'Loading...' : 'Enter your name please'}</h2>
+
       <form className="form" onSubmit={(event) => event.preventDefault()}>
         <div className="labels">
           <div className="name">
@@ -87,6 +96,7 @@ export default function GuestForm() {
               className="input"
               value={firstName}
               onChange={(event) => setFirstName(event.target.value)}
+              disabled={disable}
             />
           </div>
           <div className="name">
@@ -97,11 +107,11 @@ export default function GuestForm() {
               value={lastName}
               onChange={(event) => setLastName(event.target.value)}
               onKeyDown={onEnterChange}
+              disabled={disable}
             />
           </div>
         </div>
       </form>
-
       <div className="checknbtn">
         {allGuests.map((guest) => (
           <section key={guest.id}>
