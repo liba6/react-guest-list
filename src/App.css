@@ -13,13 +13,16 @@ h1 {
 
 .form {
   margin: 20px;
-  padding: 20px;
+  padding: 10px 20px;
   align-items: center;
   font-size: 24px;
   color: black;
   z-index: 1;
 }
-
+.check {
+  align-items: center;
+  padding: 5px;
+}
 .labels {
   padding: 30px;
   display: flex;

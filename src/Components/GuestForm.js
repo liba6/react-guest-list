@@ -3,8 +3,8 @@ import { useState } from 'react';
 export default function GuestForm() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [attendingStatus, setAttendingStatus] = useState(false);
   const [allGuests, setAllGuests] = useState([]);
+  const [loadingMsg, setLoadingMsg] = useState('Loading...');
 
   const baseUrl = 'http://localhost:4000';
 
@@ -23,6 +23,27 @@ export default function GuestForm() {
     await response.json();
   }
 
+  // to update data in api
+  async function updateGuests(id, attending) {
+    const response = await fetch(`${baseUrl}/guests/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ attending: !attending }),
+    });
+
+    const updatedGuest = await response.json();
+    console.log(updatedGuest);
+    const allGuestsWhoChanged = [...allGuests].map((guest) => {
+      if (updatedGuest.id !== guest.id) {
+        return guest;
+      } else {
+        return updatedGuest;
+      }
+    });
+    setAllGuests(allGuestsWhoChanged);
+  }
   // to get names of all guests
   async function getGuests() {
     const response = await fetch(`${baseUrl}/guests`);
@@ -50,6 +71,8 @@ export default function GuestForm() {
     );
     setAllGuests(newGuestsArray);
   }
+
+  // function to show loading msg and disable input forms
 
   console.log('allGuests', allGuests);
   return (
@@ -83,17 +106,17 @@ export default function GuestForm() {
         {allGuests.map((guest) => (
           <section key={guest.id}>
             {guest.firstName} {guest.lastName}
-            <div className="check">
-              <input
-                type="checkbox"
-                id="checkbox"
-                className="box"
-                checked={attendingStatus}
-                aria-label={`${firstName} ${lastName} ${attendingStatus}`}
-                onChange={() => setAttendingStatus(!attendingStatus)}
-              />
+            <p className="check">
               <label htmlFor="checkbox"> Attending </label>
-            </div>
+              <input
+                className="input"
+                type="checkbox"
+                id={`checkbox-${guest.id}`}
+                checked={guest.attending}
+                aria-label={`${guest.firstName} ${guest.lastName} ${guest.attending}`}
+                onChange={() => updateGuests(guest.id, guest.attending)}
+              />
+            </p>
             <button className="remove" onClick={() => remove(guest.id)}>
               Remove
             </button>
