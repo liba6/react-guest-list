@@ -110,27 +110,30 @@ export default function GuestForm() {
           />
         </div>
       </form>
-      {allGuests.map((guest) => (
-        <div data-test-id="guest" key={guest.id} className="check">
-          {guest.firstName} {guest.lastName}
-          <label htmlFor="checkbox"> Attending </label>
-          <input
-            className="input"
-            type="checkbox"
-            id={`checkbox-${guest.id}`}
-            checked={guest.attending}
-            aria-label={`${guest.firstName} ${guest.lastName} ${guest.attending}`}
-            onChange={() => updateGuests(guest.id, guest.attending)}
-          />
-          <button
-            aria-label={`Remove ${guest.firstName} ${guest.lastName}`}
-            className="remove"
-            onClick={() => remove(guest.id)}
-          >
-            Remove
-          </button>
-        </div>
-      ))}
+        {allGuests.map((guest) => (
+          <div data-test-id="guest" key={guest.id} className="check">
+            <div>
+              {' '}
+              {guest.firstName} {guest.lastName}
+              <label htmlFor="checkbox"> Attending </label>
+              <input
+                className="input"
+                type="checkbox"
+                id={`checkbox-${guest.id}`}
+                checked={guest.attending}
+                aria-label={`${guest.firstName} ${guest.lastName} ${guest.attending}`}
+                onChange={() => updateGuests(guest.id, guest.attending)}
+              />
+            </div>
+            <button
+              aria-label={`Remove ${guest.firstName} ${guest.lastName}`}
+              className="remove"
+              onClick={() => remove(guest.id)}
+            >
+              Remove
+            </button>
+          </div>
+        ))}
     </div>
   );
 }

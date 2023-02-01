@@ -22,14 +22,13 @@ h2 {
   color: black;
   z-index: 1;
 }
-/* //.check {
-  align-items: center;
-  padding: 5px;
-} */
-.name {
+.labels {
   padding: 30px;
   display: flex;
   justify-content: center;
+}
+.name {
+  padding: 30px;
 }
 .input {
   border-radius: 10px;
@@ -41,8 +40,9 @@ h2 {
   font-size: 24px;
   justify-content: right;
   margin-right: 140px;
-  padding: 30px;
   gap: 30px;
+  align-items: center;
+  padding: 15px;
 }
 
 button {
