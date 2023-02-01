@@ -129,7 +129,11 @@ export default function GuestForm() {
                 onChange={() => updateGuests(guest.id, guest.attending)}
               />
             </p>
-            <button className="remove" onClick={() => remove(guest.id)}>
+            <button
+              aria-label={`Remove ${guest.firstName} ${guest.lastName}`}
+              className="remove"
+              onClick={() => remove(guest.id)}
+            >
               Remove
             </button>
           </section>
