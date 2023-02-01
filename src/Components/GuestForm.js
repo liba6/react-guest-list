@@ -92,7 +92,7 @@ export default function GuestForm() {
       <form className="form" onSubmit={(event) => event.preventDefault()}>
         <div className="labels">
           <div className="name">
-            <label htmlFor="firstname"> First Name </label>
+            <label htmlFor="firstname"> First name </label>
             <input
               id="firstname"
               className="input"
@@ -102,7 +102,7 @@ export default function GuestForm() {
             />
           </div>
           <div className="name">
-            <label htmlFor="lastname"> Last Name </label>
+            <label htmlFor="lastname"> Last name </label>
             <input
               id="lastname"
               className="input"
