@@ -76,9 +76,9 @@ export default function GuestForm() {
       method: 'DELETE',
     });
     const deletedGuest = await response.json();
-    const newGuestsArray = [...allGuests].filter(
-      (guest) => guest.id !== deletedGuest.id,
-    );
+    const newGuestsArray = allGuests.filter((guest) => {
+      return guest.id !== deletedGuest.id;
+    });
     setAllGuests(newGuestsArray);
   }
   if (isLoading) {
