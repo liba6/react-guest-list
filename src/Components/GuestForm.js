@@ -112,18 +112,20 @@ export default function GuestForm() {
       </form>
       <div className="checknbtn">
         {allGuests.map((guest) => (
-          <div data-test-id="guest" key={guest.id}>
-            {guest.firstName} {guest.lastName}
-            className="check">
-            <label htmlFor="checkbox"> Attending </label>
-            <input
-              className="input"
-              type="checkbox"
-              id={`checkbox-${guest.id}`}
-              checked={guest.attending}
-              aria-label={`${guest.firstName} ${guest.lastName} ${guest.attending}`}
-              onChange={() => updateGuests(guest.id, guest.attending)}
-            />
+          <div data-test-id="guest" key={guest.id} className="check">
+            <div>
+              {' '}
+              {guest.firstName} {guest.lastName}
+              <label htmlFor="checkbox"> Attending </label>
+              <input
+                className="input"
+                type="checkbox"
+                id={`checkbox-${guest.id}`}
+                checked={guest.attending}
+                aria-label={`${guest.firstName} ${guest.lastName} ${guest.attending}`}
+                onChange={() => updateGuests(guest.id, guest.attending)}
+              />
+            </div>
             <button
               aria-label={`Remove ${guest.firstName} ${guest.lastName}`}
               className="remove"
