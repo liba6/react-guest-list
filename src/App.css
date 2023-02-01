@@ -27,6 +27,8 @@ h1 {
 }
 .name {
   padding: 30px;
+  justify-content: center;
+  align-items: center;
 }
 .input {
   border-radius: 10px;
