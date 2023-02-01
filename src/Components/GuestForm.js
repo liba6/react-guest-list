@@ -82,11 +82,15 @@ export default function GuestForm() {
     setAllGuests(newGuestsArray);
   }
 
+  if (isLoading) {
+    return 'Loading...';
+  }
+
   console.log('allGuests', allGuests);
   return (
     <div data-test-id="guest" className="pic">
       <h1>React Guest List</h1>
-      <h2> {isLoading ? 'Loading...' : 'Enter your name please'}</h2>
+
       <form className="form" onSubmit={(event) => event.preventDefault()}>
         <div className="labels">
           <div className="name">
