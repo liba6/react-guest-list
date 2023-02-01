@@ -6,7 +6,8 @@ export default function GuestForm() {
   const [allGuests, setAllGuests] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const baseUrl = 'http://localhost:4000';
+  const baseUrl =
+    'https://express-guest-list-api-memory-data-store.liba6.repl.co';
 
   // send data to api
   async function addGuest() {
