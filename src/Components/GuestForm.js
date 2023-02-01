@@ -87,7 +87,7 @@ export default function GuestForm() {
 
   console.log('allGuests', allGuests);
   return (
-    <div data-test-id="guest" className="pic">
+    <div className="pic">
       <h1>React Guest List</h1>
       <form className="form" onSubmit={(event) => event.preventDefault()}>
         <div className="name">
