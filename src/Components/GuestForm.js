@@ -116,7 +116,7 @@ export default function GuestForm() {
       </form>
       <div className="checknbtn">
         {allGuests.map((guest) => (
-          <section key={guest.id}>
+          <div data-test-id="guest" key={guest.id}>
             {guest.firstName} {guest.lastName}
             <p className="check">
               <label htmlFor="checkbox"> Attending </label>
@@ -136,7 +136,7 @@ export default function GuestForm() {
             >
               Remove
             </button>
-          </section>
+          </div>
         ))}
       </div>
     </div>
