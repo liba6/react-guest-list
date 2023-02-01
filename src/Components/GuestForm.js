@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function GuestForm() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [allGuests, setAllGuests] = useState([]);
-  const [disable, setDisable] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   const baseUrl = 'http://localhost:4000';
 
@@ -21,7 +21,6 @@ export default function GuestForm() {
       }),
     });
     await response.json();
-    setDisable(false);
   }
 
   // to update data in api
@@ -51,6 +50,7 @@ export default function GuestForm() {
     const response = await fetch(`${baseUrl}/guests`);
     const allGuestResponse = await response.json();
     setAllGuests(allGuestResponse);
+    setIsLoading(false);
   }
 
   useEffect(() => {
@@ -85,8 +85,7 @@ export default function GuestForm() {
   return (
     <div data-test-id="guest" className="pic">
       <h1>React Guest List</h1>
-      <h2> {disable ? 'Loading...' : 'Enter your name please'}</h2>
-
+      <h2> {isLoading ? 'Loading...' : 'Enter your name please'}</h2>
       <form className="form" onSubmit={(event) => event.preventDefault()}>
         <div className="labels">
           <div className="name">
@@ -96,7 +95,7 @@ export default function GuestForm() {
               className="input"
               value={firstName}
               onChange={(event) => setFirstName(event.target.value)}
-              disabled={disable}
+              disabled={isLoading}
             />
           </div>
           <div className="name">
@@ -107,7 +106,7 @@ export default function GuestForm() {
               value={lastName}
               onChange={(event) => setLastName(event.target.value)}
               onKeyDown={onEnterChange}
-              disabled={disable}
+              disabled={isLoading}
             />
           </div>
         </div>
