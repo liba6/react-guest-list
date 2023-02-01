@@ -119,7 +119,7 @@ export default function GuestForm() {
             type="checkbox"
             id={`checkbox-${guest.id}`}
             checked={guest.attending}
-            aria-label={`${guest.firstName} ${guest.lastName} ${guest.attending}`}
+            aria-label={`attending ${guest.firstName} ${guest.lastName}`}
             onChange={() => updateGuests(guest.id, guest.attending)}
           />
           <button
