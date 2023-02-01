@@ -26,13 +26,10 @@ h2 {
   align-items: center;
   padding: 5px;
 }
-.labels {
+.name {
   padding: 30px;
   display: flex;
   justify-content: center;
-}
-.name {
-  padding: 30px;
 }
 .input {
   border-radius: 10px;

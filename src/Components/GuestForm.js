@@ -90,45 +90,40 @@ export default function GuestForm() {
     <div data-test-id="guest" className="pic">
       <h1>React Guest List</h1>
       <form className="form" onSubmit={(event) => event.preventDefault()}>
-        <div className="labels">
-          <div className="name">
-            <label htmlFor="firstname">First name</label>
-            <input
-              id="firstname"
-              className="input"
-              value={firstName}
-              onChange={(event) => setFirstName(event.target.value)}
-              disabled={isLoading}
-            />
-          </div>
-          <div className="name">
-            <label htmlFor="lastname">Last name</label>
-            <input
-              id="lastname"
-              className="input"
-              value={lastName}
-              onChange={(event) => setLastName(event.target.value)}
-              onKeyDown={onEnterChange}
-              disabled={isLoading}
-            />
-          </div>
+        <div className="name">
+          <label htmlFor="firstname">First name</label>
+          <input
+            id="firstname"
+            className="input"
+            value={firstName}
+            onChange={(event) => setFirstName(event.target.value)}
+            disabled={isLoading}
+          />
+          <label htmlFor="lastname">Last name</label>
+          <input
+            id="lastname"
+            className="input"
+            value={lastName}
+            onChange={(event) => setLastName(event.target.value)}
+            onKeyDown={onEnterChange}
+            disabled={isLoading}
+          />
         </div>
       </form>
       <div className="checknbtn">
         {allGuests.map((guest) => (
           <div data-test-id="guest" key={guest.id}>
             {guest.firstName} {guest.lastName}
-            <p className="check">
-              <label htmlFor="checkbox"> Attending </label>
-              <input
-                className="input"
-                type="checkbox"
-                id={`checkbox-${guest.id}`}
-                checked={guest.attending}
-                aria-label={`${guest.firstName} ${guest.lastName} ${guest.attending}`}
-                onChange={() => updateGuests(guest.id, guest.attending)}
-              />
-            </p>
+            className="check">
+            <label htmlFor="checkbox"> Attending </label>
+            <input
+              className="input"
+              type="checkbox"
+              id={`checkbox-${guest.id}`}
+              checked={guest.attending}
+              aria-label={`${guest.firstName} ${guest.lastName} ${guest.attending}`}
+              onChange={() => updateGuests(guest.id, guest.attending)}
+            />
             <button
               aria-label={`Remove ${guest.firstName} ${guest.lastName}`}
               className="remove"
