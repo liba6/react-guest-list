@@ -83,14 +83,14 @@ export default function GuestForm() {
   }
   if (isLoading) {
     return 'Loading...';
-  } else {
-    return 'Please enter your name'
-  }
+
+
 
   console.log('allGuests', allGuests);
   return (
     <div className="pic">
       <h1>React Guest List</h1>
+      <h2> Please enter your name </h2>
       <form className="form" onSubmit={(event) => event.preventDefault()}>
         <div className="name">
           <label htmlFor="firstname">First name</label>
