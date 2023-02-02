@@ -83,8 +83,7 @@ export default function GuestForm() {
   }
   if (isLoading) {
     return 'Loading...';
-
-
+  }
 
   console.log('allGuests', allGuests);
   return (
