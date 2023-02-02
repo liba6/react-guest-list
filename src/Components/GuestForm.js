@@ -83,6 +83,8 @@ export default function GuestForm() {
   }
   if (isLoading) {
     return 'Loading...';
+  } else {
+    return 'Please enter your name'
   }
 
   console.log('allGuests', allGuests);
