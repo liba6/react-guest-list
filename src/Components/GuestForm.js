@@ -10,7 +10,7 @@ export default function GuestForm() {
   const baseUrl =
     'https://express-guest-list-api-memory-data-store.liba6.repl.co';
 
-  // send data to api
+  // add Guest with fetching api
   async function addGuest() {
     const response = await fetch(`${baseUrl}/guests`, {
       method: 'POST',
@@ -23,7 +23,9 @@ export default function GuestForm() {
       }),
     });
     const createdGuest = await response.json();
-    setAllGuests = ([...allGuests], createdGuest);
+    setAllGuests([...allGuests], createdGuest);
+    setFirstName('');
+    setLastName('');
   }
 
   // to update data in api
@@ -48,28 +50,25 @@ export default function GuestForm() {
   }
 
   // to get names of all guests
-  // async function getGuests() {
-  //   const response = await fetch(`${baseUrl}/guests`);
-  //   const allGuestResponse = await response.json();
-  //   setAllGuests(allGuestResponse);
-  //   setIsLoading(false);
-  // }
+  const getGuests = async () => {
+    const response = await fetch(`${baseUrl}/guests`);
+    const allGuestResponse = await response.json();
+    setAllGuests(allGuestResponse);
+    setIsLoading(false);
+  };
 
   useEffect(() => {
-    updatedGuest().catch((error) => {
+    getGuests().catch((error) => {
       setHasError(error);
       return hasError;
     });
-  }, [hasError, getGuests]);
+  }, [hasError]);
 
   // function when pressing Enter
   async function onEnterChange(event) {
     if (event.key === 'Enter') {
       event.preventDefault();
       await addGuest();
-      await getGuests();
-      setFirstName('');
-      setLastName('');
     }
   }
   // function to remove Guests
@@ -113,7 +112,7 @@ export default function GuestForm() {
         </div>
       </form>
       {allGuests.map((guest) => (
-        <div data-test-id="guest" key={guest.id} className="check">
+        <div data-test-id="guest" key={`guest -${guest.id}`} className="check">
           {guest.firstName} {guest.lastName}
           <label htmlFor="checkbox"> Attending </label>
           <input
