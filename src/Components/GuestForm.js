@@ -5,6 +5,7 @@ export default function GuestForm() {
   const [lastName, setLastName] = useState('');
   const [allGuests, setAllGuests] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState('');
 
   const baseUrl =
     'https://express-guest-list-api-memory-data-store.liba6.repl.co';
@@ -21,7 +22,8 @@ export default function GuestForm() {
         lastName: lastName,
       }),
     });
-    await response.json();
+    const createdGuest = await response.json();
+    setAllGuests = ([...allGuests], createdGuest);
   }
 
   // to update data in api
@@ -35,7 +37,6 @@ export default function GuestForm() {
     });
 
     const updatedGuest = await response.json();
-    console.log(updatedGuest);
     const allGuestsWhoChanged = [...allGuests].map((guest) => {
       if (updatedGuest.id !== guest.id) {
         return guest;
@@ -47,18 +48,19 @@ export default function GuestForm() {
   }
 
   // to get names of all guests
-  async function getGuests() {
-    const response = await fetch(`${baseUrl}/guests`);
-    const allGuestResponse = await response.json();
-    setAllGuests(allGuestResponse);
-    setIsLoading(false);
-  }
+  // async function getGuests() {
+  //   const response = await fetch(`${baseUrl}/guests`);
+  //   const allGuestResponse = await response.json();
+  //   setAllGuests(allGuestResponse);
+  //   setIsLoading(false);
+  // }
 
   useEffect(() => {
-    getGuests().catch((error) => {
-      console.log(error);
+    updatedGuest().catch((error) => {
+      setHasError(error);
+      return hasError;
     });
-  }, []);
+  }, [hasError, getGuests]);
 
   // function when pressing Enter
   async function onEnterChange(event) {
@@ -85,7 +87,6 @@ export default function GuestForm() {
     return 'Loading...';
   }
 
-  console.log('allGuests', allGuests);
   return (
     <div className="pic">
       <h1>React Guest List</h1>
